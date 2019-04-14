@@ -68,6 +68,9 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 #pragma mark -
 #pragma mark Initialization and teardown
 
+// bugfix, 视频录制黑屏，音频缓冲区是在视频缓冲区之前写入的
+static BOOL allowWriteAudio = NO;
+
 - (id)initWithMovieURL:(NSURL *)newMovieURL size:(CGSize)newSize;
 {
     return [self initWithMovieURL:newMovieURL size:newSize fileType:AVFileTypeQuickTimeMovie outputSettings:nil];
@@ -278,14 +281,15 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
         }
     });
     isRecording = YES;
-	//    [assetWriter startSessionAtSourceTime:kCMTimeZero];
+    //    [assetWriter startSessionAtSourceTime:kCMTimeZero];
+    allowWriteAudio = NO;
 }
 
 - (void)startRecordingInOrientation:(CGAffineTransform)orientationTransform;
 {
-	assetWriterVideoInput.transform = orientationTransform;
-
-	[self startRecording];
+    assetWriterVideoInput.transform = orientationTransform;
+    
+    [self startRecording];
 }
 
 - (void)cancelRecording;
@@ -365,16 +369,19 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 
 - (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer;
 {
+    if (!allowWriteAudio) {
+        return;
+    }
     if (!isRecording || _paused)
     {
         return;
     }
     
-//    if (_hasAudioTrack && CMTIME_IS_VALID(startTime))
+    //    if (_hasAudioTrack && CMTIME_IS_VALID(startTime))
     if (_hasAudioTrack)
     {
         CFRetain(audioBuffer);
-
+        
         CMTime currentSampleTime = CMSampleBufferGetOutputPresentationTimeStamp(audioBuffer);
         
         if (CMTIME_IS_INVALID(startTime))
@@ -800,6 +807,7 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
             {
                 if (![assetWriterPixelBufferInput appendPixelBuffer:pixel_buffer withPresentationTime:frameTime])
                     NSLog(@"Problem appending pixel buffer at time: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
+                allowWriteAudio = YES;
             }
             else
             {
