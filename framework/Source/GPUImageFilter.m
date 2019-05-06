@@ -84,12 +84,12 @@ NSString *const kGPUImagePassthroughFragmentShaderString = SHADER_STRING
             
             if (![filterProgram link])
             {
-                NSString *progLog = [filterProgram programLog];
-                NSLog(@"Program link log: %@", progLog);
-                NSString *fragLog = [filterProgram fragmentShaderLog];
-                NSLog(@"Fragment shader compile log: %@", fragLog);
-                NSString *vertLog = [filterProgram vertexShaderLog];
-                NSLog(@"Vertex shader compile log: %@", vertLog);
+//                NSString *progLog = [filterProgram programLog];
+                //NSLog(@"Program link log: %@", progLog);
+//                NSString *fragLog = [filterProgram fragmentShaderLog];
+                //NSLog(@"Fragment shader compile log: %@", fragLog);
+//                NSString *vertLog = [filterProgram vertexShaderLog];
+                //NSLog(@"Vertex shader compile log: %@", vertLog);
                 filterProgram = nil;
                 NSAssert(NO, @"Filter shader link failed");
             }

@@ -154,12 +154,12 @@ NSString *const kGPUImageHistogramAccumulationFragmentShaderString = SHADER_STRI
                     
                     if (![secondFilterProgram link])
                     {
-                        NSString *progLog = [secondFilterProgram programLog];
-                        NSLog(@"Program link log: %@", progLog);
-                        NSString *fragLog = [secondFilterProgram fragmentShaderLog];
-                        NSLog(@"Fragment shader compile log: %@", fragLog);
-                        NSString *vertLog = [secondFilterProgram vertexShaderLog];
-                        NSLog(@"Vertex shader compile log: %@", vertLog);
+//                        NSString *progLog = [secondFilterProgram programLog];
+                        //NSLog(@"Program link log: %@", progLog);
+//                        NSString *fragLog = [secondFilterProgram fragmentShaderLog];
+                        //NSLog(@"Fragment shader compile log: %@", fragLog);
+//                        NSString *vertLog = [secondFilterProgram vertexShaderLog];
+                        //NSLog(@"Vertex shader compile log: %@", vertLog);
                         filterProgram = nil;
                         NSAssert(NO, @"Filter shader link failed");
 
@@ -171,12 +171,12 @@ NSString *const kGPUImageHistogramAccumulationFragmentShaderString = SHADER_STRI
                     
                     if (![thirdFilterProgram link])
                     {
-                        NSString *progLog = [secondFilterProgram programLog];
-                        NSLog(@"Program link log: %@", progLog);
-                        NSString *fragLog = [secondFilterProgram fragmentShaderLog];
-                        NSLog(@"Fragment shader compile log: %@", fragLog);
-                        NSString *vertLog = [secondFilterProgram vertexShaderLog];
-                        NSLog(@"Vertex shader compile log: %@", vertLog);
+//                        NSString *progLog = [secondFilterProgram programLog];
+                        //NSLog(@"Program link log: %@", progLog);
+//                        NSString *fragLog = [secondFilterProgram fragmentShaderLog];
+                        //NSLog(@"Fragment shader compile log: %@", fragLog);
+//                        NSString *vertLog = [secondFilterProgram vertexShaderLog];
+                        //NSLog(@"Vertex shader compile log: %@", vertLog);
                         filterProgram = nil;
                         NSAssert(NO, @"Filter shader link failed");
                     }

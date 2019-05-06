@@ -197,7 +197,7 @@ NSString *const kGPUImageHoughAccumulationFBOReadFragmentShaderString = SHADER_S
             minX = MIN(minX, normalizedXCoordinate);
             maxX = MAX(maxX, normalizedXCoordinate);
             
-//            NSLog(@"Parallel line coordinates: (%f, %f) - (%f, %f) - (%f, %f)", -1.0, -normalizedYCoordinate, 0.0, normalizedXCoordinate, 1.0, normalizedYCoordinate);
+//            //NSLog(@"Parallel line coordinates: (%f, %f) - (%f, %f) - (%f, %f)", -1.0, -normalizedYCoordinate, 0.0, normalizedXCoordinate, 1.0, normalizedYCoordinate);
             // T space coordinates, (-d, -y) to (0, x)
             lineCoordinates[lineStorageIndex++] = -1.0;
             lineCoordinates[lineStorageIndex++] = -normalizedYCoordinate;
@@ -218,10 +218,10 @@ NSString *const kGPUImageHoughAccumulationFBOReadFragmentShaderString = SHADER_S
         currentByte +=8;
     }
     
-//    NSLog(@"Line pairs to render: %d out of max: %d", linePairsToRender, maxLinePairsToRender);
+//    //NSLog(@"Line pairs to render: %d out of max: %d", linePairsToRender, maxLinePairsToRender);
     
 //    CFAbsoluteTime currentFrameTime = (CFAbsoluteTimeGetCurrent() - startTime);
-//    NSLog(@"Line generation processing time : %f ms", 1000.0 * currentFrameTime);
+//    //NSLog(@"Line generation processing time : %f ms", 1000.0 * currentFrameTime);
 
     outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:[self sizeOfFBO] textureOptions:self.outputTextureOptions onlyTexture:NO];
     [outputFramebuffer activateFramebuffer];

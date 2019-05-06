@@ -122,12 +122,12 @@ static BOOL allowWriteAudio = NO;
             
             if (![colorSwizzlingProgram link])
             {
-                NSString *progLog = [colorSwizzlingProgram programLog];
-                NSLog(@"Program link log: %@", progLog);
-                NSString *fragLog = [colorSwizzlingProgram fragmentShaderLog];
-                NSLog(@"Fragment shader compile log: %@", fragLog);
-                NSString *vertLog = [colorSwizzlingProgram vertexShaderLog];
-                NSLog(@"Vertex shader compile log: %@", vertLog);
+//                NSString *progLog = [colorSwizzlingProgram programLog];
+                //NSLog(@"Program link log: %@", progLog);
+//                NSString *fragLog = [colorSwizzlingProgram fragmentShaderLog];
+                //NSLog(@"Fragment shader compile log: %@", fragLog);
+//                NSString *vertLog = [colorSwizzlingProgram vertexShaderLog];
+                //NSLog(@"Vertex shader compile log: %@", vertLog);
                 colorSwizzlingProgram = nil;
                 NSAssert(NO, @"Filter shader link failed");
             }
@@ -176,7 +176,7 @@ static BOOL allowWriteAudio = NO;
     assetWriter = [[AVAssetWriter alloc] initWithURL:movieURL fileType:fileType error:&error];
     if (error != nil)
     {
-        NSLog(@"Error: %@", error);
+        //NSLog(@"Error: %@", error);
         if (failureBlock) 
         {
             failureBlock(error);
@@ -398,7 +398,7 @@ static BOOL allowWriteAudio = NO;
 
         if (!assetWriterAudioInput.readyForMoreMediaData && _encodingLiveVideo)
         {
-            NSLog(@"1: Had to drop an audio frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
+            //NSLog(@"1: Had to drop an audio frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
             if (_shouldInvalidateAudioSampleWhenDone)
             {
                 CMSampleBufferInvalidate(audioBuffer);
@@ -460,25 +460,26 @@ static BOOL allowWriteAudio = NO;
             }
         }
         
-//        NSLog(@"Recorded audio sample time: %lld, %d, %lld", currentSampleTime.value, currentSampleTime.timescale, currentSampleTime.epoch);
+//        //NSLog(@"Recorded audio sample time: %lld, %d, %lld", currentSampleTime.value, currentSampleTime.timescale, currentSampleTime.epoch);
         void(^write)() = ^() {
             while( ! assetWriterAudioInput.readyForMoreMediaData && ! _encodingLiveVideo && ! audioEncodingIsFinished ) {
                 NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:0.5];
-                //NSLog(@"audio waiting...");
+                ////NSLog(@"audio waiting...");
                 [[NSRunLoop currentRunLoop] runUntilDate:maxDate];
             }
             if (!assetWriterAudioInput.readyForMoreMediaData)
             {
-                NSLog(@"2: Had to drop an audio frame %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
+                //NSLog(@"2: Had to drop an audio frame %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
             }
             else if(assetWriter.status == AVAssetWriterStatusWriting)
             {
-                if (![assetWriterAudioInput appendSampleBuffer:audioBuffer])
-                    NSLog(@"Problem appending audio buffer at time: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
+                if (![assetWriterAudioInput appendSampleBuffer:audioBuffer]) {
+                    //NSLog(@"Problem appending audio buffer at time: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
+                }
             }
             else
             {
-                //NSLog(@"Wrote an audio frame %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
+                ////NSLog(@"Wrote an audio frame %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, currentSampleTime)));
             }
 
             if (_shouldInvalidateAudioSampleWhenDone)
@@ -512,12 +513,12 @@ static BOOL allowWriteAudio = NO;
         [assetWriterVideoInput requestMediaDataWhenReadyOnQueue:videoQueue usingBlock:^{
             if( _paused )
             {
-                //NSLog(@"video requestMediaDataWhenReadyOnQueue paused");
+                ////NSLog(@"video requestMediaDataWhenReadyOnQueue paused");
                 // if we don't sleep, we'll get called back almost immediately, chewing up CPU
                 usleep(10000);
                 return;
             }
-            //NSLog(@"video requestMediaDataWhenReadyOnQueue begin");
+            ////NSLog(@"video requestMediaDataWhenReadyOnQueue begin");
             while( assetWriterVideoInput.readyForMoreMediaData && ! _paused )
             {
                 if( videoInputReadyCallback && ! videoInputReadyCallback() && ! videoEncodingIsFinished )
@@ -531,7 +532,7 @@ static BOOL allowWriteAudio = NO;
                     });
                 }
             }
-            //NSLog(@"video requestMediaDataWhenReadyOnQueue end");
+            ////NSLog(@"video requestMediaDataWhenReadyOnQueue end");
         }];
     }
     
@@ -541,12 +542,12 @@ static BOOL allowWriteAudio = NO;
         [assetWriterAudioInput requestMediaDataWhenReadyOnQueue:audioQueue usingBlock:^{
             if( _paused )
             {
-                //NSLog(@"audio requestMediaDataWhenReadyOnQueue paused");
+                ////NSLog(@"audio requestMediaDataWhenReadyOnQueue paused");
                 // if we don't sleep, we'll get called back almost immediately, chewing up CPU
                 usleep(10000);
                 return;
             }
-            //NSLog(@"audio requestMediaDataWhenReadyOnQueue begin");
+            ////NSLog(@"audio requestMediaDataWhenReadyOnQueue begin");
             while( assetWriterAudioInput.readyForMoreMediaData && ! _paused )
             {
                 if( audioInputReadyCallback && ! audioInputReadyCallback() && ! audioEncodingIsFinished )
@@ -560,7 +561,7 @@ static BOOL allowWriteAudio = NO;
                     });
                 }
             }
-            //NSLog(@"audio requestMediaDataWhenReadyOnQueue end");
+            ////NSLog(@"audio requestMediaDataWhenReadyOnQueue end");
         }];
     }        
     
@@ -690,7 +691,7 @@ static BOOL allowWriteAudio = NO;
 	glBindTexture(GL_TEXTURE_2D, [inputFramebufferToUse texture]);
 	glUniform1i(colorSwizzlingInputTextureUniform, 4);
     
-//    NSLog(@"Movie writer framebuffer: %@", inputFramebufferToUse);
+//    //NSLog(@"Movie writer framebuffer: %@", inputFramebufferToUse);
     
     glVertexAttribPointer(colorSwizzlingPositionAttribute, 2, GL_FLOAT, 0, 0, squareVertices);
 	glVertexAttribPointer(colorSwizzlingTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
@@ -761,7 +762,7 @@ static BOOL allowWriteAudio = NO;
         if (!assetWriterVideoInput.readyForMoreMediaData && _encodingLiveVideo)
         {
             [inputFramebufferForBlock unlock];
-            NSLog(@"1: Had to drop a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
+            //NSLog(@"1: Had to drop a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
             return;
         }
         
@@ -796,23 +797,23 @@ static BOOL allowWriteAudio = NO;
         void(^write)() = ^() {
             while( ! assetWriterVideoInput.readyForMoreMediaData && ! _encodingLiveVideo && ! videoEncodingIsFinished ) {
                 NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:0.1];
-                //            NSLog(@"video waiting...");
+                //            //NSLog(@"video waiting...");
                 [[NSRunLoop currentRunLoop] runUntilDate:maxDate];
             }
             if (!assetWriterVideoInput.readyForMoreMediaData)
             {
-                NSLog(@"2: Had to drop a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
+                //NSLog(@"2: Had to drop a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
             }
             else if(self.assetWriter.status == AVAssetWriterStatusWriting)
             {
                 if (![assetWriterPixelBufferInput appendPixelBuffer:pixel_buffer withPresentationTime:frameTime])
-                    NSLog(@"Problem appending pixel buffer at time: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
+                    //NSLog(@"Problem appending pixel buffer at time: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
                 allowWriteAudio = YES;
             }
             else
             {
-                NSLog(@"Couldn't write a frame");
-                //NSLog(@"Wrote a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
+                //NSLog(@"Couldn't write a frame");
+                ////NSLog(@"Wrote a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, frameTime)));
             }
             CVPixelBufferUnlockBaseAddress(pixel_buffer, 0);
             

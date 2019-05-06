@@ -180,12 +180,12 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
                 
                 if (![yuvConversionProgram link])
                 {
-                    NSString *progLog = [yuvConversionProgram programLog];
-                    NSLog(@"Program link log: %@", progLog);
-                    NSString *fragLog = [yuvConversionProgram fragmentShaderLog];
-                    NSLog(@"Fragment shader compile log: %@", fragLog);
-                    NSString *vertLog = [yuvConversionProgram vertexShaderLog];
-                    NSLog(@"Vertex shader compile log: %@", vertLog);
+//                    NSString *progLog = [yuvConversionProgram programLog];
+                    //NSLog(@"Program link log: %@", progLog);
+//                    NSString *fragLog = [yuvConversionProgram fragmentShaderLog];
+                    //NSLog(@"Fragment shader compile log: %@", fragLog);
+//                    NSString *vertLog = [yuvConversionProgram vertexShaderLog];
+                    //NSLog(@"Vertex shader compile log: %@", vertLog);
                     yuvConversionProgram = nil;
                     NSAssert(NO, @"Filter shader link failed");
                 }
@@ -211,7 +211,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
 	}
 	else
 	{
-		NSLog(@"Couldn't add video output");
+		//NSLog(@"Couldn't add video output");
         return nil;
 	}
     
@@ -274,7 +274,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
     }
     else
     {
-        NSLog(@"Couldn't add audio output");
+        //NSLog(@"Couldn't add audio output");
     }
     [audioOutput setSampleBufferDelegate:self queue:audioProcessingQueue];
     
@@ -682,7 +682,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
             }
             if (err)
             {
-                NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+                //NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
             }
             
             luminanceTexture = CVOpenGLESTextureGetName(luminanceTextureRef);
@@ -703,7 +703,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
             }
             if (err)
             {
-                NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+                //NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
             }
             
             chrominanceTexture = CVOpenGLESTextureGetName(chrominanceTextureRef);
@@ -739,7 +739,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
 //            CVReturn err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, [[GPUImageContext sharedImageProcessingContext] coreVideoTextureCache], cameraFrame, NULL, GL_TEXTURE_2D, GL_RGBA, bufferWidth, bufferHeight, GL_BGRA, GL_UNSIGNED_BYTE, 0, &texture);
 //            
 //            if (!texture || err) {
-//                NSLog(@"Camera CVOpenGLESTextureCacheCreateTextureFromImage failed (error: %d)", err);
+//                //NSLog(@"Camera CVOpenGLESTextureCacheCreateTextureFromImage failed (error: %d)", err);
 //                NSAssert(NO, @"Camera failure");
 //                return;
 //            }
@@ -768,8 +768,8 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
             {
                 CFAbsoluteTime currentFrameTime = (CFAbsoluteTimeGetCurrent() - startTime);
                 totalFrameTimeDuringCapture += currentFrameTime;
-                NSLog(@"Average frame time : %f ms", [self averageFrameDurationDuringCapture]);
-                NSLog(@"Current frame time : %f ms", 1000.0 * currentFrameTime);
+                //NSLog(@"Average frame time : %f ms", [self averageFrameDurationDuringCapture]);
+                //NSLog(@"Current frame time : %f ms", 1000.0 * currentFrameTime);
             }
         }
     }

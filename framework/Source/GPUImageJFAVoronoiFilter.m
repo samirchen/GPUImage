@@ -328,7 +328,7 @@ NSString *const kGPUImageJFAVoronoiFragmentShaderString = SHADER_STRING
     if (!(self = [super initWithVertexShaderFromString:kGPUImageJFAVoronoiVertexShaderString fragmentShaderFromString:kGPUImageJFAVoronoiFragmentShaderString]))
     {
         
-        NSLog(@"nil returned");
+        //NSLog(@"nil returned");
 		return nil;
         
     }
@@ -349,11 +349,11 @@ NSString *const kGPUImageJFAVoronoiFragmentShaderString = SHADER_STRING
     float height = log2(sizeInPixels.height);
     
     if (width != height) {
-        NSLog(@"Voronoi point texture must be square");
+        //NSLog(@"Voronoi point texture must be square");
         return;
     }
     if (width != floor(width) || height != floor(height)) {
-        NSLog(@"Voronoi point texture must be a power of 2.  Texture size: %f, %f", sizeInPixels.width, sizeInPixels.height);
+        //NSLog(@"Voronoi point texture must be a power of 2.  Texture size: %f, %f", sizeInPixels.width, sizeInPixels.height);
         return;
     }
     glUniform2f(sizeUniform, _sizeInPixels.width, _sizeInPixels.height);

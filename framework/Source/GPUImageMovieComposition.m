@@ -34,7 +34,7 @@
 
 - (AVAssetReader*)createAssetReader
  {
-    //NSLog(@"creating reader from composition: %@, video: %@, audio: %@ with duration: %@", _compositon, _videoComposition, _audioMix, CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, _compositon.duration)));
+    ////NSLog(@"creating reader from composition: %@, video: %@, audio: %@ with duration: %@", _compositon, _videoComposition, _audioMix, CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, _compositon.duration)));
 
     NSError *error = nil;
     AVAssetReader *assetReader = [AVAssetReader assetReaderWithAsset:self.compositon error:&error];

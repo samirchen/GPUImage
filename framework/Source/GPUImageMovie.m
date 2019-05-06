@@ -112,12 +112,12 @@
 
                 if (![yuvConversionProgram link])
                 {
-                    NSString *progLog = [yuvConversionProgram programLog];
-                    NSLog(@"Program link log: %@", progLog);
-                    NSString *fragLog = [yuvConversionProgram fragmentShaderLog];
-                    NSLog(@"Fragment shader compile log: %@", fragLog);
-                    NSString *vertLog = [yuvConversionProgram vertexShaderLog];
-                    NSLog(@"Vertex shader compile log: %@", vertLog);
+//                    NSString *progLog = [yuvConversionProgram programLog];
+                    //NSLog(@"Program link log: %@", progLog);
+//                    NSString *fragLog = [yuvConversionProgram fragmentShaderLog];
+                    //NSLog(@"Fragment shader compile log: %@", fragLog);
+//                    NSString *vertLog = [yuvConversionProgram vertexShaderLog];
+                    //NSLog(@"Vertex shader compile log: %@", vertLog);
                     yuvConversionProgram = nil;
                     NSAssert(NO, @"Filter shader link failed");
                 }
@@ -257,7 +257,7 @@
 
     if ([reader startReading] == NO) 
     {
-            NSLog(@"Error reading from file at URL: %@", self.url);
+            //NSLog(@"Error reading from file at URL: %@", self.url);
         return;
     }
 
@@ -327,7 +327,7 @@
         error = CVDisplayLinkCreateWithCGDisplay(displayID, &displayLink);
         if (error)
         {
-            NSLog(@"DisplayLink created with error:%d", error);
+            //NSLog(@"DisplayLink created with error:%d", error);
             displayLink = NULL;
         }
         CVDisplayLinkSetOutputCallback(displayLink, renderCallback, (__bridge void *)self);
@@ -419,7 +419,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         CMSampleBufferRef sampleBufferRef = [readerVideoTrackOutput copyNextSampleBuffer];
         if (sampleBufferRef) 
         {
-            //NSLog(@"read a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, CMSampleBufferGetOutputPresentationTimeStamp(sampleBufferRef))));
+            ////NSLog(@"read a video frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, CMSampleBufferGetOutputPresentationTimeStamp(sampleBufferRef))));
             if (_playAtActualSpeed)
             {
                 // Do this outside of the video processing queue to not slow that down while waiting
@@ -474,7 +474,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         CMSampleBufferRef audioSampleBufferRef = [readerAudioTrackOutput copyNextSampleBuffer];
         if (audioSampleBufferRef)
         {
-            //NSLog(@"read an audio frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, CMSampleBufferGetOutputPresentationTimeStamp(audioSampleBufferRef))));
+            ////NSLog(@"read an audio frame: %@", CFBridgingRelease(CMTimeCopyDescription(kCFAllocatorDefault, CMSampleBufferGetOutputPresentationTimeStamp(audioSampleBufferRef))));
             [self.audioEncodingTarget processAudioBuffer:audioSampleBufferRef];
             CFRelease(audioSampleBufferRef);
             return YES;
@@ -566,7 +566,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 
     }
     
-    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+//    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
 
     // Fix issue 1580
     [GPUImageContext useImageProcessingContext];
@@ -617,7 +617,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             }
             if (err)
             {
-                NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+                //NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
             }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -649,7 +649,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
             }
             if (err)
             {
-                NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+                //NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
             }
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -695,7 +695,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 //            CVReturn err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, coreVideoTextureCache, movieFrame, NULL, GL_TEXTURE_2D, GL_RGBA, bufferWidth, bufferHeight, GL_BGRA, GL_UNSIGNED_BYTE, 0, &texture);
 //
 //            if (!texture || err) {
-//                NSLog(@"Movie CVOpenGLESTextureCacheCreateTextureFromImage failed (error: %d)", err);
+//                //NSLog(@"Movie CVOpenGLESTextureCacheCreateTextureFromImage failed (error: %d)", err);
 //                NSAssert(NO, @"Camera failure");
 //                return;
 //            }
@@ -766,8 +766,8 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
     
     if (_runBenchmark)
     {
-        CFAbsoluteTime currentFrameTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        NSLog(@"Current frame time : %f ms", 1000.0 * currentFrameTime);
+//        CFAbsoluteTime currentFrameTime = (CFAbsoluteTimeGetCurrent() - startTime);
+        //NSLog(@"Current frame time : %f ms", 1000.0 * currentFrameTime);
     }
 }
 

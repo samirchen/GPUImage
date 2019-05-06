@@ -166,8 +166,8 @@
         NSString *newGaussianBlurVertexShader = [[self class] vertexShaderForOptimizedBlurOfRadius:_blurRadiusInPixels sigma:0.0];
         NSString *newGaussianBlurFragmentShader = [[self class] fragmentShaderForOptimizedBlurOfRadius:_blurRadiusInPixels sigma:0.0];
         
-        //        NSLog(@"Optimized vertex shader: \n%@", newGaussianBlurVertexShader);
-        //        NSLog(@"Optimized fragment shader: \n%@", newGaussianBlurFragmentShader);
+        //        //NSLog(@"Optimized vertex shader: \n%@", newGaussianBlurVertexShader);
+        //        //NSLog(@"Optimized fragment shader: \n%@", newGaussianBlurFragmentShader);
         //
         [self switchToVertexShader:newGaussianBlurVertexShader fragmentShader:newGaussianBlurFragmentShader];
     }

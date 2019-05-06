@@ -134,8 +134,8 @@
     while (currentByte < imageByteSize)
     {
         GLubyte colorByte = rawImagePixels[currentByte];
-//        NSLog(@"(%d,%d): [%d,%d,%d,%d]", xCoordinate, yCoordinate, rawImagePixels[currentByte], rawImagePixels[currentByte+1], rawImagePixels[currentByte+2], rawImagePixels[currentByte+3]);
-//        NSLog(@"[%d,%d,%d,%d]", rawImagePixels[currentByte], rawImagePixels[currentByte+1], rawImagePixels[currentByte+2], rawImagePixels[currentByte+3]);
+//        //NSLog(@"(%d,%d): [%d,%d,%d,%d]", xCoordinate, yCoordinate, rawImagePixels[currentByte], rawImagePixels[currentByte+1], rawImagePixels[currentByte+2], rawImagePixels[currentByte+3]);
+//        //NSLog(@"[%d,%d,%d,%d]", rawImagePixels[currentByte], rawImagePixels[currentByte+1], rawImagePixels[currentByte+2], rawImagePixels[currentByte+3]);
         
         if (colorByte > 0)
         {
@@ -143,7 +143,7 @@
             unsigned int yCoordinate = currentByte / imageWidth;
             
             lineStrengthCounter += colorByte;
-//            NSLog(@"(%d,%d): [%d,%d,%d,%d]", xCoordinate, yCoordinate, rawImagePixels[currentByte], rawImagePixels[currentByte+1], rawImagePixels[currentByte+2], rawImagePixels[currentByte+3]);
+//            //NSLog(@"(%d,%d): [%d,%d,%d,%d]", xCoordinate, yCoordinate, rawImagePixels[currentByte], rawImagePixels[currentByte+1], rawImagePixels[currentByte+2], rawImagePixels[currentByte+3]);
           
             CGFloat normalizedXCoordinate = -1.0 + 2.0 * (CGFloat)(xCoordinate / 4) / imageSize.width;
             CGFloat normalizedYCoordinate = -1.0 + 2.0 * (CGFloat)(yCoordinate) / imageSize.height;
@@ -190,7 +190,7 @@
     }
     
 //    CFAbsoluteTime currentFrameTime = (CFAbsoluteTimeGetCurrent() - startTime);
-//    NSLog(@"Processing time : %f ms", 1000.0 * currentFrameTime);
+//    //NSLog(@"Processing time : %f ms", 1000.0 * currentFrameTime);
 
     if (linesDetectedBlock != NULL)
     {
